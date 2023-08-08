@@ -5,16 +5,15 @@ const weatherContainer = document.querySelector(".search-result");
 const previousResults = document.querySelector(".previous-results");
 const errorPopup = document.querySelector(".error-popup");
 
-// Listener formluarza
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const cityName = cityDropdown.options[cityDropdown.selectedIndex].value;
 
   if (cityName === "") {
-    errorPopup.style.visibility = "visible";
+    createErrorPopup("Wybierz miasto!");
   } else {
-    fetch(`https://danepubliczne.imgw.pl/api/data/synop/station/${cityName}`)
+    fetch(`https://danepubliczne.imgw.pl/api/data/synops/stations/${cityName}`)
       .then((data) => {
         return data.json();
       })
@@ -31,17 +30,16 @@ form.addEventListener("submit", (e) => {
           weatherContainer.innerHTML = fillSearchData(res);
           fillPreviousSearchData();
         } else {
-          errorPopup.style.visibility = "visible";
+          createErrorPopup("Brak danych do wyświetlenia.")
         }
       })
       .catch((error) => {
         console.log(error);
-        errorPopup.style.visibility = "visible";
+        createErrorPopup("Coś poszło nie tak.");
       });
   }
 });
 
-// Tworzy divy i wypełnia danymi z API
 function fillSearchData(data) {
   return `<div class=" container search-result-container">
               <h2>${data.stacja}</h2>
@@ -75,21 +73,21 @@ function fillPreviousSearchData() {
     const divElement = document.createElement("div");
     divElement.classList.add('previous-results-item', 'row')
     divElement.innerHTML = `
-              <div class="col col-lg-2 col-12 previous-results-data-item">
+              <div class="col col-lg-2 col-12 previous-results-data-col">
                 <h2>${element.stacja}</h2>
               </div>
-              <div class="col col-lg-2 col-12 previous-results-data-item">
+              <div class="col col-lg-2 col-12 previous-results-data-col">
                 <p>Data pomiaru</p>
                 <h4>${element.data_pomiaru}°C</h4>
               </div>
-              <div class="col col-lg-2 col-12 previous-results-data-item">
+              <div class="col col-lg-2 col-12 previous-results-data-col">
                 <p>Temperatura</p>
                 <h4>${element.temperatura}°C</h4>
               </div>
-              <div class="col col-lg-2 col-12 previous-results-data-item">
+              <div class="col col-lg-2 col-12 previous-results-data-col">
                 <p>Suma opadów</p>
                 <h4>${element.suma_opadu}mm</h4></div>
-              <div class="col col-lg-2 col-12 previous-results-data-item">
+              <div class="col col-lg-2 col-12 previous-results-data-col">
                 <p>Ciśnienie</p>
                 <h4>${element.cisnienie}hPa</h4>
               </div>
@@ -99,7 +97,11 @@ function fillPreviousSearchData() {
   previousResults.appendChild(scrollableElement);
 }
 
-// Zapisuje do stora
+function createErrorPopup(message) {
+  errorPopup.style.visibility = "visible";
+  errorPopup.textContent = message;
+}
+
 function addToStorage(data) {
   const storedData = JSON.parse(localStorage.getItem("storage")) || [];
   const newStoredData = JSON.stringify([data, ...storedData]);
