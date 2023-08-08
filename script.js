@@ -59,12 +59,16 @@ function fillSearchData(data) {
 
 function fillPreviousSearchData() {
   previousResults.innerHTML = "";
+  const storedData = JSON.parse(localStorage.getItem("storage")) || [];
 
   const headerElement = document.createElement("h2");
   headerElement.textContent = "Poprzednio wyszukiwane:";
   previousResults.appendChild(headerElement);
 
-  JSON.parse(localStorage.getItem("storage")).forEach((element) => {
+  const scrollableElement = document.createElement("div");
+  scrollableElement.classList.add("scrollable-wrapper", "container");
+
+  storedData.forEach((element) => {
     const divElement = document.createElement("div");
     divElement.classList.add('previous-results-item', 'row')
     divElement.innerHTML = `
@@ -87,8 +91,9 @@ function fillPreviousSearchData() {
                 <h4>${element.cisnienie}hPa</h4>
               </div>
               `;
-    previousResults.appendChild(divElement);
+    scrollableElement.appendChild(divElement);
   });
+  previousResults.appendChild(scrollableElement);
 }
 
 // Zapisuje do stora
