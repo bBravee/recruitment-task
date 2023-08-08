@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="error-popup" style="visibility: hidden;"">
+      Błąd
+    </div>
     <header class="form-wrapper">
       <form id="cityForm">
         <select
@@ -20,7 +23,7 @@
           class="form-select"
           aria-label="Default select example"
         >
-          <option value="none" selected disabled hidden></option>
+          <option value="" selected disabled hidden></option>
           <option value="kielce">Kielce</option>
           <option value="krakow">Kraków</option>
           <option value="lublin">Lublin</option>

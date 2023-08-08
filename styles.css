@@ -32,6 +32,19 @@ h3 {
   font-size: clamp(.2rem, 5vw, 2rem);
 }
 
+.error-popup {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15%;
+  height: 8%;
+  background:rgba(209, 1, 1, 0.5);
+  border-radius: 10px;
+  top: 20px;
+  right: 15px;
+}
+
 /* Formularz */
 
 .form-wrapper {

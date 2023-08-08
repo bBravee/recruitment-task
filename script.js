@@ -3,6 +3,7 @@ const submitButton = document.querySelector("#submitButton");
 const cityDropdown = document.querySelector("#cities");
 const weatherContainer = document.querySelector(".search-result");
 const previousResults = document.querySelector(".previous-results");
+const errorPopup = document.querySelector(".error-popup");
 
 // Listener formluarza
 form.addEventListener("submit", (e) => {
@@ -10,8 +11,8 @@ form.addEventListener("submit", (e) => {
 
   const cityName = cityDropdown.options[cityDropdown.selectedIndex].value;
 
-  if (cityName === "none") {
-    alert("Invalid Input!");
+  if (cityName === "") {
+    errorPopup.style.visibility = "visible";
   } else {
     fetch(`https://danepubliczne.imgw.pl/api/data/synop/station/${cityName}`)
       .then((data) => {
@@ -25,15 +26,17 @@ form.addEventListener("submit", (e) => {
           res.cisnienie &&
           res.suma_opadu
         ) {
+          errorPopup.style.visibility = "hidden";
           addToStorage(res);
           weatherContainer.innerHTML = fillSearchData(res);
           fillPreviousSearchData();
         } else {
-          alert("Something went wrong");
+          errorPopup.style.visibility = "visible";
         }
       })
       .catch((error) => {
         console.log(error);
+        errorPopup.style.visibility = "visible";
       });
   }
 });
