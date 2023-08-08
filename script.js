@@ -26,8 +26,8 @@ form.addEventListener("submit", (e) => {
           res.suma_opadu
         ) {
           addToStorage(res);
-          weatherContainer.innerHTML = fillData(res);
-          fillPrevious();
+          weatherContainer.innerHTML = fillSearchData(res);
+          fillPreviousSearchData();
         } else {
           alert("Something went wrong");
         }
@@ -39,26 +39,56 @@ form.addEventListener("submit", (e) => {
 });
 
 // Tworzy divy i wypełnia danymi z API
-function fillData(data) {
-    return `<div class="search-result-container">
-                    <p>${data.stacja}</p>
-                    <p>${data.data_pomiaru}</p>
-                    <p>${data.temperatura}</p>
-                    <p>${data.cisnienie}</p>
-                    <p>${data.suma_opadu}</p>
-                </div>`;
+function fillSearchData(data) {
+  return `<div class=" container search-result-container">
+              <h2>${data.stacja}</h2>
+              <h4>${data.data_pomiaru}</h4>
+              <h3>${data.temperatura}°C</h3>
+              <div class="row search-result-row">
+                <div class="col search-result-col">
+                  <p>Suma opadów</p>
+                  <h3>${data.cisnienie}hPa</h3>
+                </div>
+                <div class="col search-result-col">
+                  <p>Suma opadu</p>
+                  <h3>${data.suma_opadu}mm</h3>
+                </div>
+              </div>
+            </div>`;
 }
 
-function fillPrevious() {
+function fillPreviousSearchData() {
   previousResults.innerHTML = "";
 
-  JSON.parse(localStorage.getItem("storage")).forEach((element) => {
-    const paragraphElement = document.createElement("h5");
-    paragraphElement.textContent = element.stacja;
+  const headerElement = document.createElement("h2");
+  headerElement.textContent = "Poprzednio wyszukiwane:";
+  previousResults.appendChild(headerElement);
 
-    previousResults.appendChild(paragraphElement);
+  JSON.parse(localStorage.getItem("storage")).forEach((element) => {
+    const divElement = document.createElement("div");
+    divElement.classList.add('previous-results-item', 'row')
+    divElement.innerHTML = `
+              <div class="col col-lg-2 col-12 previous-results-data-item">
+                <h2>${element.stacja}</h2>
+              </div>
+              <div class="col col-lg-2 col-12 previous-results-data-item">
+                <p>Data pomiaru</p>
+                <h4>${element.data_pomiaru}°C</h4>
+              </div>
+              <div class="col col-lg-2 col-12 previous-results-data-item">
+                <p>Temperatura</p>
+                <h4>${element.temperatura}°C</h4>
+              </div>
+              <div class="col col-lg-2 col-12 previous-results-data-item">
+                <p>Suma opadów</p>
+                <h4>${element.suma_opadu}mm</h4></div>
+              <div class="col col-lg-2 col-12 previous-results-data-item">
+                <p>Ciśnienie</p>
+                <h4>${element.cisnienie}hPa</h4>
+              </div>
+              `;
+    previousResults.appendChild(divElement);
   });
-  previousResults.innerHTML = tags;
 }
 
 // Zapisuje do stora

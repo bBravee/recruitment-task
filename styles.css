@@ -1,0 +1,125 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;400;700&display=swap");
+
+* {
+  font-family: "Nunito Sans", sans-serif;
+  color: white;
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: antiquewhite;
+  background-image: url(assets/sky.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 2.5rem;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+/* Formularz */
+
+.form-wrapper {
+  width: 100%;
+}
+
+#cityForm {
+  width: 100%;
+  padding-top: 4rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 6rem;
+}
+
+.form-select {
+  width: 60%;
+  padding: 0.6rem;
+  border-radius: 15px;
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  font-size: 1.5rem;
+}
+
+/* Prezentacja zapytania */
+.search-result {
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 7rem;
+}
+
+.search-result-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+  border-radius: 15px;
+  width: 40%;
+  height: 30rem;
+}
+
+.search-result-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.search-result-col {
+  margin: 1rem 1.5rem;
+  padding: 1rem;
+  border: 3px solid white;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Poprzednie wyszukiwania */
+.previous-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 30rem;
+  overflow-y: auto;
+}
+
+.previous-results-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 3rem;
+  padding: 1rem;
+  border: 3px solid white;
+  border-radius: 15px;
+  background: rgba(27, 27, 27, 0.2);
+}
+
+.previous-results-data-item {
+  text-align: center;
+}
