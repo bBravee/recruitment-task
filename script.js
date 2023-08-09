@@ -13,7 +13,7 @@ form.addEventListener("submit", (e) => {
   if (cityName === "") {
     createErrorPopup("Wybierz miasto!");
   } else {
-    fetch(`https://danepubliczne.imgw.pl/api/data/synops/stations/${cityName}`)
+    fetch(`https://danepubliczne.imgw.pl/api/data/synop/station/${cityName}`)
       .then((data) => {
         return data.json();
       })
@@ -30,7 +30,7 @@ form.addEventListener("submit", (e) => {
           weatherContainer.innerHTML = fillSearchData(res);
           fillPreviousSearchData();
         } else {
-          createErrorPopup("Brak danych do wyświetlenia.")
+          createErrorPopup("Brak danych do wyświetlenia.");
         }
       })
       .catch((error) => {
@@ -64,36 +64,39 @@ function fillPreviousSearchData() {
 
   const headerElement = document.createElement("h2");
   headerElement.textContent = "Poprzednio wyszukiwane:";
-  previousResults.appendChild(headerElement);
+
+  if (storedData.length === 2) {
+    previousResults.appendChild(headerElement);
+  }
 
   const scrollableElement = document.createElement("div");
   scrollableElement.classList.add("scrollable-wrapper", "container");
 
-  storedData.forEach((element) => {
+  for (i = 1; i < storedData.length; i++) {
     const divElement = document.createElement("div");
-    divElement.classList.add('previous-results-item', 'row')
+    divElement.classList.add("previous-results-item", "row");
     divElement.innerHTML = `
-              <div class="col col-lg-2 col-12 previous-results-data-col">
-                <h2>${element.stacja}</h2>
-              </div>
-              <div class="col col-lg-2 col-12 previous-results-data-col">
-                <p>Data pomiaru</p>
-                <h4>${element.data_pomiaru}°C</h4>
-              </div>
-              <div class="col col-lg-2 col-12 previous-results-data-col">
-                <p>Temperatura</p>
-                <h4>${element.temperatura}°C</h4>
-              </div>
-              <div class="col col-lg-2 col-12 previous-results-data-col">
-                <p>Suma opadów</p>
-                <h4>${element.suma_opadu}mm</h4></div>
-              <div class="col col-lg-2 col-12 previous-results-data-col">
-                <p>Ciśnienie</p>
-                <h4>${element.cisnienie}hPa</h4>
-              </div>
-              `;
+                <div class="col col-lg-2 col-12 previous-results-data-col">
+                  <h2>${storedData[i].stacja}</h2>
+                </div>
+                <div class="col col-lg-2 col-12 previous-results-data-col">
+                  <p>Data pomiaru</p>
+                  <h4>${storedData[i].data_pomiaru}°C</h4>
+                </div>
+                <div class="col col-lg-2 col-12 previous-results-data-col">
+                  <p>Temperatura</p>
+                  <h4>${storedData[i].temperatura}°C</h4>
+                </div>
+                <div class="col col-lg-2 col-12 previous-results-data-col">
+                  <p>Suma opadów</p>
+                  <h4>${storedData[i].suma_opadu}mm</h4></div>
+                <div class="col col-lg-2 col-12 previous-results-data-col">
+                  <p>Ciśnienie</p>
+                  <h4>${storedData[i].cisnienie}hPa</h4>
+                </div>
+                `;
     scrollableElement.appendChild(divElement);
-  });
+  }
   previousResults.appendChild(scrollableElement);
 }
 
