@@ -3,7 +3,9 @@
 
 This is a simple weather application project created for recruitment purposes. The application retrieves weather data from three stations: Kraków, Lublin, and Kielce, using the API provided by IMGW and shows it to user.
 
+![Preview image 1](./preview/preview1.jpg)
 
+![Preview image 2](./preview/preview2.jpg)
 
 
 ## Features
@@ -28,5 +30,6 @@ This is a simple weather application project created for recruitment purposes. T
 
 1. Clone the repository to your computer.
 1. Open the index.html file in a web browser
+
 
 
