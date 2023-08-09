@@ -61,7 +61,7 @@ function fillSearchData(data) {
               <h3>${data.temperatura}°C</h3>
               <div class="row search-result-row">
                 <div class="col search-result-col">
-                  <p>Suma opadów</p>
+                  <p>Ciśnienie</p>
                   <h3>${data.cisnienie}hPa</h3>
                 </div>
                 <div class="col search-result-col">
